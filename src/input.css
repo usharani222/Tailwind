@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .center-both{
+        @apply flex justify-between h-11 items-center
+    }
+};
