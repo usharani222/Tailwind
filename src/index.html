@@ -26,7 +26,7 @@
       <label for="message" class="text-lg font-semibold">Message</label>
       <input type="text" id="message" class="border border-gray-300 rounded p-2">
 
-      <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600" onclick="sendmsg()">
+      <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600" onclick="sendmsg(event)">
         WatsApp Send
       </button>
     </form>
@@ -35,7 +35,8 @@
 
   </footer>
   <script>
-    function sendmsg(){
+    function sendmsg(e){
+      e.preventDefault();
       const phno=document.getElementById("ph").value;
       const msg=document.getElementById("message").value;
       const time=document.getElementById("time").value;
@@ -44,17 +45,16 @@
       min=parseInt(min);
       const now=new Date();
       const target=new Date();
-      target.setHours(hour);
-      target.setMinutes(min);
+      target.setHours(hour,min,0,0);
       if(target<=now){
         target.setDate(target.getDate()+1);
       }
 
       const diff=target-now;
-
+      console.log(diff);
       setTimeout(function(){
-        const url="https://wa.me/"+phno+"?text="+"\nMessage: "+msg;
-       window.open(url,'_blank').focus();
+        const url="https://wa.me/"+phno+"?text="+encodeURIComponent("\nMessage: "+msg);
+       window.open(url,'_blank');
       },diff);
       alert(`Message will be send at ${target.toLocaleDateString()}`);
     }
