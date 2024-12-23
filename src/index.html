@@ -21,8 +21,8 @@
     <form class="flex flex-col space-y-4 p-6 bg-white shadow-md rounded">
       <label for="ph" class="text-lg font-semibold">Phone number</label>
       <input type="text" id="ph" class="border border-gray-300 rounded p-2">
-      <label for="time" class="text-lg font-semibold">Time To Send</label>
-      <input type="time" id="time" class="border border-gray-300 rounded p-2">
+      <!-- <label for="time" class="text-lg font-semibold">Time To Send</label>
+      <input type="time" id="time" class="border border-gray-300 rounded p-2"> -->
       <label for="message" class="text-lg font-semibold">Message</label>
       <input type="text" id="message" class="border border-gray-300 rounded p-2">
 
@@ -43,25 +43,25 @@
       e.preventDefault();
       const phno=document.getElementById("ph").value;
       const msg=document.getElementById("message").value;
-      const time=document.getElementById("time").value;
-      var [hour,min] = time.split(":");
-      hour=parseInt(hour);
-      min=parseInt(min);
-      const now=new Date();
-      const target=new Date();
-      target.setHours(hour,min,0,0);
-      if(target<=now){
-        target.setDate(target.getDate()+1);
-      }
+      // const time=document.getElementById("time").value;
+      // var [hour,min] = time.split(":");
+      // hour=parseInt(hour);
+      // min=parseInt(min);
+      // const now=new Date();
+      // const target=new Date();
+      // target.setHours(hour,min,0,0);
+      // if(target<=now){
+      //   target.setDate(target.getDate()+1);
+      // }
 
-      const diff=target-now;
-      console.log(diff);
-      setTimeout(function(){
+      // const diff=target-now;
+      // console.log(diff);
+      // setTimeout(function(){
         const url="https://wa.me/"+phno+"?text="+encodeURIComponent("\nMessage: "+msg);
        window.open(url,'_blank');
-       console.log(url);
-      },diff);
-      alert(`Message will be send at ${target.toLocaleDateString()}`);
+    //    console.log(url);
+    //   },diff);
+    //   alert(`Message will be send at ${target.toLocaleDateString()}`);
     }
   </script>
 </body>
