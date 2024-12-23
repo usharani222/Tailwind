@@ -21,7 +21,8 @@
     <form class="flex flex-col space-y-4 p-6 bg-white shadow-md rounded">
       <label for="name" class="text-lg font-semibold">Phone number</label>
       <input type="text" id="ph" class="border border-gray-300 rounded p-2">
-
+      <label for="message" class="text-lg font-semibold">At What Time(24hr format)</label>
+      <input type="time" id="time" class="border border-gray-300 rounded p-2">
       <label for="message" class="text-lg font-semibold">Message</label>
       <input type="text" id="message" class="border border-gray-300 rounded p-2">
 
@@ -35,13 +36,27 @@
   </footer>
   <script>
     function sendmsg(){
-      var t=new Date();
-      console.log(t);
       const phno=document.getElementById("ph").value;
       const msg=document.getElementById("message").value;
-      const url="https://wa.me/"+phno+"?text="
-       +"\nMessage: "+msg;
+      const time=document.getElementById("time").value;
+      var [hour,min] = time.split(":");
+      hour=parseInt(hour);
+      min=parseInt(min);
+      const now=new Date();
+      const target=new Date();
+      target.setHours(hour);
+      target.setMinutes(min);
+      if(target<=now){
+        target.setDate(target.getDate()+1);
+      }
+
+      const diff=target-now;
+
+      setTimeout(function(){
+        const url="https://wa.me/"+phno+"?text="+"\nMessage: "+msg;
        window.open(url,'_blank').focus();
+      },diff);
+      alert(`Message will be send at ${target.toLocaleDateString()}`);
     }
   </script>
 </body>
